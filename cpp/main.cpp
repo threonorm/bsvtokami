@@ -98,10 +98,11 @@ int processBSVFile(const string &inputFileName, shared_ptr<TypeChecker> typeChec
             ::mkdir("koika", 0775);
 
             string koikaFileName("koika/");
-            char buffer[4096];
-	    strncpy(buffer, inputFileName.c_str(), sizeof(buffer)-1);
-            koikaFileName += string(::basename(buffer));
-            koikaFileName += string(".koika");
+            // char buffer[4096];
+    	    // strncpy(buffer, inputFileName.c_str(), sizeof(buffer)-1);
+            // koikaFileName += string(::basename(buffer));
+            koikaFileName += packageName;
+            koikaFileName += string(".v");
 
             GenerateKoika *generateKoika = new GenerateKoika();
             generateKoika->open(koikaFileName);
@@ -152,7 +153,7 @@ int main(int argc, char *const argv[]) {
     options.opt_inline = 0;
     string opt_rename;
 
-    while ((ch = getopt(argc, argv, "D:I:aikr:t")) != -1) {
+    while ((ch = getopt(argc, argv, "D:I:aikKr:t")) != -1) {
         switch (ch) {
             case 'a':
                 options.opt_ast = 1;
@@ -199,7 +200,7 @@ int main(int argc, char *const argv[]) {
         numberOfSyntaxErrors += processBSVFile(inputFileName, typeChecker, options);
         visitedPackages[packageName] = inputFileName;
 
-        if (0) {
+        if (1) {
             const vector<string> visitedPackageNames = typeChecker->visitedPackageNames();
             for (int j = 0; j < visitedPackageNames.size(); j++) {
                 const string packageName = visitedPackageNames[j];

@@ -9,6 +9,7 @@
 #include <fstream>
 #include <memory>
 #include <vector>
+#include <map>
 
 #include "BSVType.h"
 #include "Expr.h"
@@ -19,6 +20,10 @@ using namespace std;
 class GenerateKoika {
     string filename;
     ofstream out;
+    map<string,string> instances;
+    map<string,string> value_methods;
+    map<string,string> action_methods;
+    map<string,string> rules;
 
 public:
     GenerateKoika();
@@ -40,6 +45,8 @@ public:
 
     void generateKoika(const shared_ptr<IfStmt> &stmt, int depth = 0);
 
+    void generateKoika(const shared_ptr<CallStmt> &stmt, int depth = 0);
+
     void generateKoika(const shared_ptr<ImportStmt> &stmt, int depth = 0);
 
     void generateKoika(const shared_ptr<InterfaceDeclStmt> &stmt, int depth = 0);
@@ -51,6 +58,14 @@ public:
     void generateKoika(const shared_ptr<ModuleDefStmt> &stmt, int depth = 0);
 
     void generateKoika(const shared_ptr<RegWriteStmt> &stmt, int depth = 0);
+
+    void generateKoika(const shared_ptr<RegReadStmt> &stmt, int depth = 0);
+
+    void generateKoika(const shared_ptr<ModuleInstStmt> &stmt, int depth = 0);
+
+    void generateKoika(const shared_ptr<CondExpr> &expr, int depth =0);
+    
+    // void generateKoika(const shared_ptr<RegisterStmt> &stmt, int depth, vector<shared_ptr<Stmt>> &actionStmts);
 
     void generateKoika(const shared_ptr<ReturnStmt> &stmt, int depth = 0);
 
@@ -67,6 +82,8 @@ public:
     void generateKoika(const shared_ptr<VarExpr> &expr, int depth = 0, int precedence = 0);
 
     void generateKoika(const shared_ptr<CallExpr> &expr, int depth = 0, int precedence = 0);
+
+    void generateKoika(const shared_ptr<MethodExpr> &expr, int depth = 0, int precedence = 0);
 
     void generateKoika(const shared_ptr<IntConst> &expr, int depth = 0, int precedence = 0);
 
