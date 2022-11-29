@@ -1,0 +1,3 @@
+Add support for structs
+Fix bug with missing guards
+Test tuple?

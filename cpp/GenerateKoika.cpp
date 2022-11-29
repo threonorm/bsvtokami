@@ -114,8 +114,8 @@ void GenerateKoika::generateKoika(const shared_ptr<CondExpr> &expr, int depth) {
 }
 
 void GenerateKoika::generateKoika(const shared_ptr<MethodExpr> &expr, int depth, int precedence) {
+    out << expr->methodName << " ";
     generateKoika(expr->object, depth);
-    out << " " << expr->methodName;
 //  logstream << "method expr ";
 //     expr->object->bsvtype->to_string();
 //     logstream << " " << expr->methodName << " at " << expr->sourcePos.toString() << endl;
